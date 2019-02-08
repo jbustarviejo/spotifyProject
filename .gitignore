@@ -1,4 +1,5 @@
 .git
 node_modules/*
 nodeData/.env.json
+nodeData/node_modules/*
 pythonAnalysis/app/*
