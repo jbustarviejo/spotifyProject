@@ -2,6 +2,24 @@ from matplotlib import pyplot as plt
 import matplotlib
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
+import pymongo
+
+myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+mydb = myclient["spotify"]
+mycol = mydb["playLists"]
+
+genres = mycol.find()
+
+tracks = []
+tracks_target = []
+
+i = 0
+for genre in genres:
+  i+=1;
+  for track in genre["tracks"]:
+    track_info = track["info"]
+    tracks.append( [track_info["danceability"], track_info["energy"], track_info["loudness"], track_info["speechiness"], track_info["acousticness"], track_info["instrumentalness"], track_info["liveness"], track_info["valence"], track_info["tempo"]] )
+    tracks_target.append( i )
 
 
 # Importing Modules
@@ -12,12 +30,9 @@ from sklearn.manifold import TSNE
 # Loading dataset
 # iris_df = datasets.load_iris()
 # print(iris_df.target)
-dataset=[[5.1 ,3.5 ,1.4 ,0.2],
- [4.9, 3. , 1.4 ,0.2],
- [4.7, 3.2, 1.3, 0.2],
- [5.4, 3.7, 1.5 ,0.2]]
+dataset=tracks
 
-target = [1,2,1,2]
+target = tracks_target
 
 # Defining Model
 model = TSNE(learning_rate=100)
