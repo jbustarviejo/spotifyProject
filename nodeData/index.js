@@ -1,3 +1,6 @@
+//Update node version (v8.11.2)
+//Run: node index.js
+
 const axios = require('axios');
 const MongoClient = require('mongodb').MongoClient;
 const env = require('./.env.json');
@@ -27,6 +30,7 @@ const getClient = async () => {
   return await MongoClient.connect(url, { useNewUrlParser: true })
 }
 
+//Poblate the BBDD with playlists data from Spotify
 const getPlayListInfo = async () => {
   const client = await getClient()
   console.log("Connected successfully to server")
@@ -39,7 +43,7 @@ const getPlayListInfo = async () => {
     try{
       response = await axios({
         method: 'get',
-        url: 'https://api.spotify.com/v1/playlists/'+playlist[i].id+'?market=ES&fields=tracks.items(track(name%2Chref))',
+        url: 'https://api.spotify.com/v1/playlists/'+playlist[i].id+'?market=ES&fields=tracks.items(track(name,href,id))',
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json",
