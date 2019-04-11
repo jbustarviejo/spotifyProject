@@ -13,7 +13,7 @@ const dbName = 'spotify';
 
 const userToken = "" //Spotify Content
 const playlist=[
-  {person: "Paula", extroversion: 1}
+  {person: "Mara", extroversion: 95}
 ]
 
 const getClient = async () => {
